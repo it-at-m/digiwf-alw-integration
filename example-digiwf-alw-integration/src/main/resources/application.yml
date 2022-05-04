@@ -1,0 +1,53 @@
+server:
+  port: 10006
+logging.level.org.springframework.web: DEBUG
+spring:
+  mail:
+    host: mail.muenchen.de
+    port: 587
+    #    port: 25
+    username: itm.digiwf
+    password: x2wznN8Ucv
+    properties:
+      mail.debug: true
+      mail.tls: true
+      mail.transport.protocol: smtp
+      mail.smtp.host: mail.muenchen.de
+      mail.smtp.port: 587
+      #      mail.smtp.port: 25
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.auth: true
+      #      mail.smtp.auth: false
+      mail.smtp.ssl.trust: "*"
+      mail.smtp.ssl.checkserveridentity: false
+      mail.smtp.socketFactory.fallback: true
+      mail.smtp.starttls.enable: true
+
+# for digiwf-spring-cloudstream-utils
+  cloud.stream.kafka.binder.consumerProperties.key.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  cloud.stream.kafka.binder.consumerProperties.value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  cloud.stream.kafka.binder.producerProperties.key.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  cloud.stream.kafka.binder.producerProperties.value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  kafka.consumer.properties.spring.json.trusted.packages: "*"
+  cloud.stream.kafka.binder.consumerProperties.auto.offset.reset: latest
+  cloud.stream.kafka.binder.configuration.security.protocol: SSL
+  cloud.function.definition: functionRouter;sendMessage;sendCorrelateMessage;
+  cloud.stream.kafka.binder.brokers: dwf-cluster-kafka-tls-bootstrap-lhmeventbus.apps.capk.muenchen.de:443
+  cloud.stream.bindings.sendMessage-out-0.destination: dwf-digiwf-local-07
+  cloud.stream.bindings.sendCorrelateMessage-out-0.destination: dwf-digiwf-engine-local-05
+  cloud.stream.bindings.functionRouter-in-0.group: g1
+  cloud.stream.bindings.functionRouter-in-0.destination: dwf-digiwf-local-07
+  kafka.ssl.key-store-location: file://C:\\Users\\martin.dietrich\\Development\\idea\\digiwf-engine\\src\\main\\resources\\kafka-auth-keystore.jks
+  kafka.ssl.trust-store-location: file://C:\\Users\\martin.dietrich\\Development\\idea\\digiwf-engine\\src\\main\\resources\\truststore.jks
+  kafka.ssl.key-store-password: fsdah432!7kjhfsa.!?sDEfg
+  kafka.ssl.trust-store-password: vchf67163!=?ljfsdam.y35
+  kafka.ssl.key-password: fsdah432!7kjhfsa.!?sDEfg
+
+digiwf.mail.fromAddress: itm.digiwf@muenchen.de
+
+io:
+  muenchendigital:
+    email:
+      test:
+        receiver: martin.dietrich@muenchen.de

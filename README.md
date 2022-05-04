@@ -23,10 +23,10 @@ What to adjust:
     <img src="/images/logo.png" alt="Logo" height="200">
   </a>
 
-<h3 align="center">DigiWF <i>repo or project name</i></h3>
+<h3 align="center">DigiWF ALW-Integration</h3>
 
   <p align="center">
-    <i>Add a here a short description</i>
+    Spring-Boot-Starter project to integrate the ALW-System into DigiWF
     <br /><a href="#">Report Bug</a>
     ·
     <a href="#">Request Feature</a>
@@ -36,7 +36,7 @@ What to adjust:
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-*Add a description from your project here.*
+*TODO: Add a description from your project here.*
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -45,27 +45,49 @@ What to adjust:
 
 The documentation project is built with technologies we use in our projects:
 
-* *write here the list of used technologies*
+* Spring-Boot
+* Spring-Cloud-Stream
+* Jackson?
+* Jaxb
+* http?
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-*if you have a ROADMAP for your project add this here*
-
-
 See the [open issues](#) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Set up
-*how can i start and fly this project*
+* Go to the example-app
+* Configure the application.yml
+
+```
+# KAFKA
+spring.cloud.stream.kafka.binder.brokers: <THE URL TO YOUR KAFKA INSTANCE>
+spring.cloud.stream.bindings.sendMessage-out-0.destination: <YOUR CUSTOM REQUEST TOPIC>
+spring.cloud.stream.bindings.sendCorrelateMessage-out-0.destination: <YOUR CUSTOM RESPONSE TOPIC>
+spring.cloud.stream.bindings.functionRouter-in-0.group: <YOUR GROUP>
+spring.cloud.stream.bindings.functionRouter-in-0.destination: <YOUR CUSTOM REQUEST TOPIC> # For a roundtrip use the same value as in "spring.cloud.stream.bindings.sendMessage-out-0.destination" 
+spring.kafka.ssl.key-store-location: <Resource path to your keystore>
+spring.kafka.ssl.trust-store-location: <Resource path to your truststore>
+spring.kafka.ssl.key-store-password: <Password to your keystore>
+spring.kafka.ssl.trust-store-password: <Password to your truststore>
+spring.kafka.ssl.key-password: <Key password>
+
+# ALW
+TODO
+```
+* Start the example application
+* Make a http request to the configured test endpoints from <i>ExampleController</i>
+* Observe the output in the console
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Documentation
-*what insights do you have to tell*
+Detailed documentation see TODO (docs-Folder)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
