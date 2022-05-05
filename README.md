@@ -61,21 +61,16 @@ See the [open issues](#) for a full list of proposed features (and known issues)
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Set up
-* Go to the example-app
+* Go to the example-digiwf-alw-integration app
 * Configure the application.yml
-
+  * Add the config items from [here](https://github.com/it-at-m/digiwf-spring-cloudstream-utils#getting-started)
+  * Configure these items:
 ```
 # KAFKA
-spring.cloud.stream.kafka.binder.brokers: <THE URL TO YOUR KAFKA INSTANCE>
 spring.cloud.stream.bindings.sendMessage-out-0.destination: <YOUR CUSTOM REQUEST TOPIC>
 spring.cloud.stream.bindings.sendCorrelateMessage-out-0.destination: <YOUR CUSTOM RESPONSE TOPIC>
 spring.cloud.stream.bindings.functionRouter-in-0.group: <YOUR GROUP>
 spring.cloud.stream.bindings.functionRouter-in-0.destination: <YOUR CUSTOM REQUEST TOPIC> # For a roundtrip use the same value as in "spring.cloud.stream.bindings.sendMessage-out-0.destination" 
-spring.kafka.ssl.key-store-location: <Resource path to your keystore>
-spring.kafka.ssl.trust-store-location: <Resource path to your truststore>
-spring.kafka.ssl.key-store-password: <Password to your keystore>
-spring.kafka.ssl.trust-store-password: <Password to your truststore>
-spring.kafka.ssl.key-password: <Key password>
 
 # ALW
 TODO
