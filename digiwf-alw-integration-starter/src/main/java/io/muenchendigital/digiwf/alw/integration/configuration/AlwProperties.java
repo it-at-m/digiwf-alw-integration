@@ -4,9 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "digiwf.mail")
-public class CustomMailProperties {
+@ConfigurationProperties(prefix = "digiwf.alw")
+public class AlwProperties {
 
-    private String fromAddress = "noreply@noreply.com";
+    private String url = "http://alweai.muenchen.de";
 
 }

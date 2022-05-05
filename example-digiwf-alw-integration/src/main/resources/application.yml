@@ -1,29 +1,9 @@
 server:
   port: 10006
-logging.level.org.springframework.web: DEBUG
-spring:
-  mail:
-    host: mail.muenchen.de
-    port: 587
-    #    port: 25
-    username: itm.digiwf
-    password: x2wznN8Ucv
-    properties:
-      mail.debug: true
-      mail.tls: true
-      mail.transport.protocol: smtp
-      mail.smtp.host: mail.muenchen.de
-      mail.smtp.port: 587
-      #      mail.smtp.port: 25
-      mail.smtp.connectiontimeout: 10000
-      mail.smtp.timeout: 10000
-      mail.smtp.auth: true
-      #      mail.smtp.auth: false
-      mail.smtp.ssl.trust: "*"
-      mail.smtp.ssl.checkserveridentity: false
-      mail.smtp.socketFactory.fallback: true
-      mail.smtp.starttls.enable: true
 
+logging.level.org.springframework.web: DEBUG
+
+spring:
 # for digiwf-spring-cloudstream-utils
   cloud.stream.kafka.binder.consumerProperties.key.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
   cloud.stream.kafka.binder.consumerProperties.value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -44,10 +24,4 @@ spring:
   kafka.ssl.trust-store-password: vchf67163!=?ljfsdam.y35
   kafka.ssl.key-password: fsdah432!7kjhfsa.!?sDEfg
 
-digiwf.mail.fromAddress: itm.digiwf@muenchen.de
-
-io:
-  muenchendigital:
-    email:
-      test:
-        receiver: martin.dietrich@muenchen.de
+digiwf.alw.url: https://alweai.muenchen.de

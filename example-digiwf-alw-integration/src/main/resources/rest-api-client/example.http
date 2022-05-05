@@ -1,4 +1,4 @@
-### testGetAlwPersonenInfo
-GET http://{{host}}/testGetAlwPersonenInfo
-### testGetAlwPersonenInfoEventBus
-GET http://{{host}}/testGetAlwPersonenInfoEventBus
+### testGetAlwZustaendigkeit
+GET http://{{host}}/testGetAlwZustaendigkeit
+### testGetAlwZustaendigkeitEventBus
+GET http://{{host}}/testGetAlwZustaendigkeitEventBus
