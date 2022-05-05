@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 /**
- * TODO.
+ * Organisational responsibility data for the specific case.
  */
 @Data
 @RequiredArgsConstructor
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class AlwZustaendigkeitResponse {
 
     /**
-     * TODO.
+     * Responsible organisational unit.
      */
     private String zustaendigeGruppe;
 

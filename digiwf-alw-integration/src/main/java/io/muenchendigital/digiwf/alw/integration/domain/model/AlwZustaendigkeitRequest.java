@@ -8,7 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 /**
- * TODO.
+ * Identification data for the specific case
+ * of an organisational responsibility request.
  */
 @Data
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ import java.util.List;
 public class AlwZustaendigkeitRequest {
 
     /**
-     * TODO.
+     * The AZR number.
      */
     private String azrNummer;
 

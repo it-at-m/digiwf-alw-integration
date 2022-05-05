@@ -15,16 +15,15 @@ public class AlwService {
     private final String url;
 
     /**
-     * TODO.
+     * Determine organisational responsibility for a specific case.
      *
-     * @param alwZustaendigkeitRequest TODO
+     * @param alwZustaendigkeitRequest identification data of the specific case
      */
     public AlwZustaendigkeitResponse getZustaendigkeit(final AlwZustaendigkeitRequest alwZustaendigkeitRequest) throws AlwException {
 
         log.info("Connect to {} for azr: {}", url, alwZustaendigkeitRequest.getAzrNummer());
 
-        CorrelateMessageService r;
-        return new AlwZustaendigkeitResponse("KVR");
+        return new AlwZustaendigkeitResponse("KVR"); // TODO: integrate eai-kvr
     }
 
 }

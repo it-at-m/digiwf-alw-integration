@@ -1,5 +1,5 @@
-io\muenchendigital\digiwf\alw\integration\configuration\MailConfiguration.class
-io\muenchendigital\digiwf\alw\integration\domain\exception\MissingInformationMailException.class
-io\muenchendigital\digiwf\alw\integration\domain\service\MailingService.class
+io\muenchendigital\digiwf\alw\integration\domain\model\AlwZustaendigkeitResponse.class
+io\muenchendigital\digiwf\alw\integration\domain\service\AlwService.class
+io\muenchendigital\digiwf\alw\integration\domain\model\AlwZustaendigkeitRequest.class
 io\muenchendigital\digiwf\alw\integration\infrastructure\streaming\MessageProcessor.class
-io\muenchendigital\digiwf\alw\integration\domain\model\Mail.class
+io\muenchendigital\digiwf\alw\integration\domain\exception\AlwException.class
