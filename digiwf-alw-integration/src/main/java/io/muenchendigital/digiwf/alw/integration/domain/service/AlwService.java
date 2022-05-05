@@ -12,7 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class AlwService {
 
-    private final String url;
+    private final String host;
+    private final Integer port;
+    private final String restEndpoint;
+    private final Long timeout;
+    private final String basicAuthUsername;
+    private final String basicAuthPassword;
 
     /**
      * Determine organisational responsibility for a specific case.
@@ -21,7 +26,7 @@ public class AlwService {
      */
     public AlwZustaendigkeitResponse getZustaendigkeit(final AlwZustaendigkeitRequest alwZustaendigkeitRequest) throws AlwException {
 
-        log.info("Connect to {} for azr: {}", url, alwZustaendigkeitRequest.getAzrNummer());
+        log.info("Connect to {}:{} for azr: {}", host, port, alwZustaendigkeitRequest.getAzrNummer());
 
         return new AlwZustaendigkeitResponse("KVR"); // TODO: integrate eai-kvr
     }

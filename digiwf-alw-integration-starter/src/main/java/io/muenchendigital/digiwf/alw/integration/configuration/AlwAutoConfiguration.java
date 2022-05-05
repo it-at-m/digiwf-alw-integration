@@ -25,6 +25,12 @@ public class AlwAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AlwService getAlwService() {
-        return new AlwService(alwProperties.getUrl());
+        return new AlwService(
+                alwProperties.getHost(),
+                alwProperties.getPort(),
+                alwProperties.getRestendpoint(),
+                alwProperties.getTimeout(),
+                alwProperties.getBasicauth_username(),
+                alwProperties.getBasicauth_password());
     }
 }
