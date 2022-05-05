@@ -5,24 +5,25 @@ logging.level.io.muenchendigital.digiwf: DEBUG
 
 spring:
 
-# for digiwf-spring-cloudstream-utils
-  cloud.stream.kafka.binder.consumerProperties.key.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-  cloud.stream.kafka.binder.consumerProperties.value.deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-  cloud.stream.kafka.binder.producerProperties.key.serializer: org.springframework.kafka.support.serializer.JsonSerializer
-  cloud.stream.kafka.binder.producerProperties.value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
-  kafka.consumer.properties.spring.json.trusted.packages: "*"
-  cloud.stream.kafka.binder.consumerProperties.auto.offset.reset: latest
-  cloud.stream.kafka.binder.configuration.security.protocol: SSL
-  cloud.function.definition: functionRouter;sendMessage;sendCorrelateMessage;
-  cloud.stream.kafka.binder.brokers: dwf-cluster-kafka-tls-bootstrap-lhmeventbus.apps.capk.muenchen.de:443
-  cloud.stream.bindings.sendMessage-out-0.destination: dwf-digiwf-local-07
-  cloud.stream.bindings.sendCorrelateMessage-out-0.destination: dwf-digiwf-engine-local-05
-  cloud.stream.bindings.functionRouter-in-0.group: @project.artifactId@
-  cloud.stream.bindings.functionRouter-in-0.destination: dwf-digiwf-local-07
-  kafka.ssl.key-store-location: file://C:\\Users\\martin.dietrich\\Development\\idea\\digiwf-engine\\src\\main\\resources\\kafka-auth-keystore.jks
-  kafka.ssl.trust-store-location: file://C:\\Users\\martin.dietrich\\Development\\idea\\digiwf-engine\\src\\main\\resources\\truststore.jks
-  kafka.ssl.key-store-password: fsdah432!7kjhfsa.!?sDEfg
-  kafka.ssl.trust-store-password: vchf67163!=?ljfsdam.y35
-  kafka.ssl.key-password: fsdah432!7kjhfsa.!?sDEfg
+# config for digiwf-spring-cloudstream-utils
+# see [digiwf-spring-cloudstream-utils#getting-started](https://github.com/it-at-m/digiwf-spring-cloudstream-utils#getting-started)
+# binder config
+  # TODO
+# function routing config
+  # TODO
 
-digiwf.alw.url: https://alweai.muenchen.de
+# kafka config
+  cloud.stream.bindings.sendMessage-out-0.destination: <YOUR ALW TOPIC>
+  cloud.stream.bindings.sendCorrelateMessage-out-0.destination: <YOUR DIGIWF TOPIC>
+  cloud.stream.bindings.functionRouter-in-0.group: @project.artifactId@
+  cloud.stream.bindings.functionRouter-in-0.destination: <YOUR ALW TOPIC> # same as sendMessage-out-0.destination
+
+# DigiWF config
+digiwf.alw:
+  personeninfo:
+    host: <YOUR ALW SYSTEM HOST>
+    port: <YOUR ALW SYSTEM PORT>
+    rest-endpoint: <YOUR REST ENDPOINT>
+    basicauth:
+      username: <YOUR USERNAME>
+      password: <YOUR PASSWORD>
