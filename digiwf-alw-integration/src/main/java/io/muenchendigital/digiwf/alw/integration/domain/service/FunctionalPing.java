@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
  */
 @Component
 @Slf4j
-//@ConditionalOnProperty("digiwf.alw.personeninfo.functional-ping.enabled")
 @ConditionalOnProperty(
         value = "digiwf.alw.personeninfo.functional-ping.enabled",
         havingValue = "true")
