@@ -1,20 +1,20 @@
+/*
+ * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
+ * der Landeshauptstadt München, 2020
+ */
 package io.muenchendigital.digiwf.alw.integration.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
 
 /**
- * Identification data for the specific case
- * of an organisational responsibility request.
+ * ALW Personeninfo request data class.
  */
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AlwZustaendigkeitRequest {
+public class AlwPersoneninfoRequest {
 
     /**
      * The AZR number.
