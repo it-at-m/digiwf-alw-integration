@@ -1,6 +1,11 @@
 <div id="top"></div>
 
 <!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
 <!-- END OF PROJECT SHIELDS -->
 
@@ -15,9 +20,9 @@
 
   <p align="center">
     Spring-Boot-Starter project to integrate the ALW-System into DigiWF
-    <br /><a href="#">Report Bug</a>
+    <br /><a href="https://github.com/it-at-m/digiwf-alw-integration/issues">Report Bug</a>
     ·
-    <a href="#">Request Feature</a>
+    <a href="https://github.com/it-at-m/digiwf-alw-integration/issues">Request Feature</a>
   </p>
 </div>
 
@@ -82,10 +87,10 @@ implementation group: 'io.muenchendigital.digiwf', name: 'digiwf-alw-integration
 Maven:
 
  ```
-     <dependency>
-         <groupId>org.springframework.cloud</groupId>
-         <artifactId>spring-cloud-stream-binder-kafka</artifactId>
-     </dependency>
+<dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+</dependency>
 ```
 
 Gradle:
@@ -134,7 +139,7 @@ There you can:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Documentation
-For a detailed documentation see [docs](https://github.com/it-at-m/digiwf-alw-integration/tree/dev/docs)
+For a detailed documentation see [docs](docs)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -179,3 +184,23 @@ it@m - opensource@muenchendigital.io
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[contributors-url]: https://github.com/it-at-m/digiwf-alw-integration/graphs/contributors
+
+[forks-shield]: https://img.shields.io/github/forks/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[forks-url]: https://github.com/it-at-m/digiwf-alw-integration/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[stars-url]: https://github.com/it-at-m/digiwf-alw-integration/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[issues-url]: https://github.com/it-at-m/digiwf-alw-integration/issues
+
+[license-shield]: https://img.shields.io/github/license/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[license-url]: https://github.com/it-at-m/digiwf-alw-integration/blob/master/LICENSE
