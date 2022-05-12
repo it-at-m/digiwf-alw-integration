@@ -2,7 +2,7 @@
  * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
  * der Landeshauptstadt München, 2020
  */
-package io.muenchendigital.digiwf.alw.integration.infrastructure.streaming;
+package io.muenchendigital.digiwf.alw.integration.api;
 
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoRequest;
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoResponse;
