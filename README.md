@@ -1,18 +1,11 @@
-## Customize this file after creating the new REPO and remove this lines.
-What to adjust:  
-* Add the your project or repo name direct under the logo.
-* Add a short and long desciption.
-* Add links for your final repo to report a bug or request a feature.
-* Add list of used technologies.
-* If you have, add a roadmap or remove this section.
-* Fill up the section for set up and documentation.
- * Start in this file only with documentation and link to the docs folder.
-* Add project shields. Use [shields.io](https://shields.io/)
-
-## ------- end to remove -------
 <div id="top"></div>
 
 <!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
 <!-- END OF PROJECT SHIELDS -->
 
@@ -23,20 +16,27 @@ What to adjust:
     <img src="/images/logo.png" alt="Logo" height="200">
   </a>
 
-<h3 align="center">DigiWF <i>repo or project name</i></h3>
+<h3 align="center">DigiWF ALW-Integration</h3>
 
   <p align="center">
-    <i>Add a here a short description</i>
-    <br /><a href="#">Report Bug</a>
+    Spring-Boot-Starter project to integrate the ALW-System into DigiWF
+    <br /><a href="https://github.com/it-at-m/digiwf-alw-integration/issues">Report Bug</a>
     ·
-    <a href="#">Request Feature</a>
+    <a href="https://github.com/it-at-m/digiwf-alw-integration/issues">Request Feature</a>
   </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-*Add a description from your project here.*
+The goal of this library is to enable async communication with the ALW System dispatched by an EventBus of your environment.
+
+Features:
+
+* Can be used to dispatch requests/responses of the ALW Personeninfo Feature asynchronously through an eventbus.
+* Can inform the receiver through an eventbus if the request was successful or if there was a problem.
+* Performs a functional ping to the ALW System to check connectivity.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -45,27 +45,101 @@ What to adjust:
 
 The documentation project is built with technologies we use in our projects:
 
-* *write here the list of used technologies*
+* Spring-Boot
+* Spring-Cloud-Stream
+* Apache Kafka
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-*if you have a ROADMAP for your project add this here*
-
-
 See the [open issues](#) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Set up
-*how can i start and fly this project*
+Follow these steps to use the starter in your application:
+
+1. Use the spring initalizer and create a Spring Boot application with `Spring Web`
+   dependencies [https://start.spring.io](https://start.spring.io)
+2. Add the digiwf-alw-integration-starter dependency.
+
+With Maven:
+
+```
+   <dependency>
+        <groupId>io.muenchendigital.digiwf</groupId>
+        <artifactId>digiwf-alw-integration-starter</artifactId>
+        <version>${digiwf.version}</version>
+   </dependency>
+```
+
+With Gradle:
+
+```
+implementation group: 'io.muenchendigital.digiwf', name: 'digiwf-alw-integration-starter', version: '${digiwf.version}'
+```
+
+3. Add your preferred binder (see [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream)). In this
+   example, we use kafka.
+
+Maven:
+
+ ```
+<dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+</dependency>
+```
+
+Gradle:
+
+```
+implementation group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-kafka'
+```
+
+4. Configure your binder.<br>
+   For an example on how to configure your binder,
+   see [DigiWF Spring Cloudstream Utils](https://github.com/it-at-m/digiwf-spring-cloudstream-utils#getting-started)
+   Note that you DO have to
+   configure ```spring.cloud.function.definition=functionRouter;sendMessage;sendCorrelateMessage;```, but you don't need
+   typeMappings. These are configured for you by the digiwf-alw-integration-starter. You also have to configure the
+   topics you want to read / send messages from / to.
+   
+5. Configure these items for your event bus:
+```
+spring.cloud.stream.bindings.sendMessage-out-0.destination: <YOUR CUSTOM REQUEST TOPIC>
+spring.cloud.stream.bindings.sendCorrelateMessage-out-0.destination: <YOUR CUSTOM RESPONSE TOPIC>
+spring.cloud.stream.bindings.functionRouter-in-0.group: <YOUR GROUP>
+spring.cloud.stream.bindings.functionRouter-in-0.destination: <YOUR CUSTOM REQUEST TOPIC> # For a roundtrip use the same value as in "spring.cloud.stream.bindings.sendMessage-out-0.destination" 
+```
+6. Configure details of your ALW System:
+```
+digiwf.alw.personeninfo:
+  base-url: <YOUR ALW SYSTEM URL>
+  rest-endpoint: <YOUR PERSONENINFO ENDPOINT>
+  timeout: <YOUR CONNECTION TIMEOUT>
+  username: <YOUR BASIC AUTH USER>
+  password: <YOUR BASIC AUTH PASSWORD>
+  functional-ping:
+    enabled: true
+    azr-number: <YOUR SAMPLE AZR NUMBER>
+```
+7. Define a map as a named resource bean (see **BEAN_ALW_SACHBEARBEITUNG** of <i>[SachbearbeitungMapperConfig](https://github.com/it-at-m/digiwf-alw-integration/blob/dev/digiwf-alw-integration/src/main/java/io/muenchendigital/digiwf/alw/integration/configuration/SachbearbeitungMapperConfig.java) </i> ) to support mapping of the ALW System responses to directory-ous. 
+
+
+For an example, please refer to the [example project](https://github.com/it-at-m/digiwf-alw-integration/tree/dev/example-digiwf-alw-integration).
+There you can:
+* Configure the example application (see above)
+* Start the example application
+* Make a http request to the configured test endpoints from <i>[ExampleController](https://github.com/it-at-m/digiwf-alw-integration/blob/dev/example-digiwf-alw-integration/src/main/java/io/muenchendigital/digiwf/alw/integration/api/controller/ExampleController.java) </i> on http://localhost:10006/testGetAlwZustaendigkeitEventBus
+* Observe the output in the console
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Documentation
-*what insights do you have to tell*
+For a detailed documentation see [docs](docs)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -110,3 +184,23 @@ it@m - opensource@muenchendigital.io
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[contributors-url]: https://github.com/it-at-m/digiwf-alw-integration/graphs/contributors
+
+[forks-shield]: https://img.shields.io/github/forks/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[forks-url]: https://github.com/it-at-m/digiwf-alw-integration/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[stars-url]: https://github.com/it-at-m/digiwf-alw-integration/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[issues-url]: https://github.com/it-at-m/digiwf-alw-integration/issues
+
+[license-shield]: https://img.shields.io/github/license/it-at-m/digiwf-alw-integration.svg?style=for-the-badge
+
+[license-url]: https://github.com/it-at-m/digiwf-alw-integration/blob/master/LICENSE
