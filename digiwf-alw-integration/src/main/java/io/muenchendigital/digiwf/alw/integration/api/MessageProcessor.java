@@ -29,7 +29,7 @@ public class MessageProcessor {
     public static final String TYPE_HEADER_GET_ALW_ZUSTAENDIGKEIT_EVENT_BUS = "getAlwZustaendigkeitEventBus";
     private final AlwPersoneninfoService alwPersoneninfoService;
     private final CorrelateMessageService correlateMessageService;
-    private static final String ALW_ZUSTAENDIGKEIT_RESPONSE = "alwZustaendigkeitResponse";
+    private static final String ALW_ZUSTAENDIGE_GRUPPE = "alwZustaendigeGruppe";
 
     /**
      * Override the custom router of the digiwf-spring-cloudstream-utils. We only have one type we need to map.
@@ -58,7 +58,7 @@ public class MessageProcessor {
                 emitResponse(message.getHeaders(), response);
             } catch (final Exception e) {
                 log.error("Request could not be fulfilled: {}", e.getMessage());
-                emitResponse(message.getHeaders(), null);
+                emitResponse(message.getHeaders(), new AlwPersoneninfoResponse(null));
             }
         };
     }
@@ -71,7 +71,7 @@ public class MessageProcessor {
      */
     public void emitResponse(final MessageHeaders messageHeaders, final AlwPersoneninfoResponse alwPersoneninfoResponse) {
         final Map<String, Object> correlatePayload = new HashMap<>();
-        correlatePayload.put(ALW_ZUSTAENDIGKEIT_RESPONSE, alwPersoneninfoResponse);
+        correlatePayload.put(ALW_ZUSTAENDIGE_GRUPPE, alwPersoneninfoResponse.getZustaendigeGruppe());
         correlateMessageService.sendCorrelateMessage(messageHeaders, correlatePayload);
     }
 }

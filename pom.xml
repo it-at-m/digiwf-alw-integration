@@ -7,7 +7,7 @@
     <groupId>io.muenchendigital.digiwf</groupId>
     <artifactId>digiwf-alw-integration-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>digiwf-alw-integration-parent</name>
     <description>Integration of the ALW-System used by DigiWF</description>
     <url>https://github.com/it-at-m/digiwf-alw-integration</url>
@@ -89,7 +89,7 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
