@@ -16,5 +16,4 @@ public class AlwPersoneninfoConfig {
 
     private String baseurl;
     private String restEndpoint;
-    private Integer timeout;
 }
