@@ -14,6 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -27,6 +32,9 @@ public class AlwPersoneninfoService {
 
     private final AlwPersoneninfoResponseMapper mapper;
 
+    private static final String SACHBEARBEITER = "sachbearbeiter";
+
+
     /**
      * Determine organisational responsibility for a specific case.
      *
@@ -36,15 +44,15 @@ public class AlwPersoneninfoService {
         azrNumberValidator.validate(alwPersoneninfoRequest.getAzrNummer());
         final String url = createAlwUrl(alwPersoneninfoRequest.getAzrNummer());
         log.info("Connecting to {} for personeninfo request", url);
-        final String restResponse = performRestCall(url);
+        final Map<String,String> restResponse = performRestCall(url);
         log.debug("Response from AlwPersoneninfo: {}", restResponse);
-        return mapper.map(restResponse);
+        return mapper.map(restResponse.get(SACHBEARBEITER));
     }
 
-    private String performRestCall(final String url) throws AlwException {
-        final String restResponse;
+    private Map<String,String> performRestCall(final String url) throws AlwException {
+        final Map<String,String> restResponse;
         try {
-            restResponse = this.restTemplate.getForObject(url, String.class);
+            restResponse = this.restTemplate.getForObject(url, Map.class);
         } catch (final Exception ex) {
             throw new AlwException("Call to " + url + " failed", ex);
         }
