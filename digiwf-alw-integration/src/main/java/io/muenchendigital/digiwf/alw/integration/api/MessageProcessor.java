@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MessageProcessor {
+public class MessageProcessor { // TODO remove
 
     public static final String TYPE_HEADER_GET_ALW_ZUSTAENDIGKEIT_EVENT_BUS = "getAlwZustaendigkeitEventBus";
     private final AlwPersoneninfoService alwPersoneninfoService;
