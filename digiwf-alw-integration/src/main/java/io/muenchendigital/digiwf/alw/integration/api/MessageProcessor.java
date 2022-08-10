@@ -7,10 +7,9 @@ package io.muenchendigital.digiwf.alw.integration.api;
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoRequest;
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoResponse;
 import io.muenchendigital.digiwf.alw.integration.domain.service.AlwPersoneninfoService;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.infrastructure.RoutingCallback;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.bpmnerror.service.BpmnErrorService;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.message.service.CorrelateMessageService;
 import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.incident.service.IncidentService;
+import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.infrastructure.RoutingCallback;
+import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.message.service.CorrelateMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.function.context.MessageRoutingCallback;
@@ -31,7 +30,6 @@ public class MessageProcessor {
     public static final String TYPE_HEADER_GET_ALW_ZUSTAENDIGKEIT_EVENT_BUS = "getAlwZustaendigkeitEventBus";
     private final AlwPersoneninfoService alwPersoneninfoService;
     private final CorrelateMessageService correlateMessageService;
-    private final BpmnErrorService bpmnErrorService;
     private final IncidentService incidentService;
     private static final String ALW_ZUSTAENDIGE_GRUPPE = "alwZustaendigeGruppe";
 
@@ -77,15 +75,6 @@ public class MessageProcessor {
         final Map<String, Object> correlatePayload = new HashMap<>();
         correlatePayload.put(ALW_ZUSTAENDIGE_GRUPPE, alwPersoneninfoResponse.getZustaendigeGruppe());
         correlateMessageService.sendCorrelateMessage(messageHeaders, correlatePayload);
-    }
-
-    /**
-     * Function to emit a reponse using the correlateMessageService of digiwf-spring-cloudstream-utils
-     *
-     * @param messageHeaders          The MessageHeaders of the incoming message you want to correlate your answer to
-     */
-    public void emitBpmnError(final MessageHeaders messageHeaders, final String errorCode, final String errorMessage) {
-        bpmnErrorService.sendBpmnError(messageHeaders, errorCode, errorMessage);
     }
 
     public void emitIncident(final MessageHeaders messageHeaders, final String errorMessage) {
