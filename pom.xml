@@ -24,6 +24,7 @@
         <maven.surfire.plugin.version>2.22.2</maven.surfire.plugin.version>
         <spring.cloud.version>2021.0.1</spring.cloud.version>
         <tika.version>1.28.1</tika.version>
+        <digiwf-spring-cloudstream-utils.version>0.10.0-SNAPSHOT</digiwf-spring-cloudstream-utils.version>
     </properties>
 
     <modules>
