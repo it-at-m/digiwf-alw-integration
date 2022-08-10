@@ -7,10 +7,10 @@ package io.muenchendigital.digiwf.alw.integration.api;
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoRequest;
 import io.muenchendigital.digiwf.alw.integration.domain.model.AlwPersoneninfoResponse;
 import io.muenchendigital.digiwf.alw.integration.domain.service.AlwPersoneninfoService;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.dto.ErrorDto;
 import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.infrastructure.RoutingCallback;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.service.CorrelateMessageService;
-import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.service.ErrorService;
+import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.bpmnerror.service.BpmnErrorService;
+import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.message.service.CorrelateMessageService;
+import io.muenchendigital.digiwf.spring.cloudstream.utils.api.streaming.incident.service.IncidentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.function.context.MessageRoutingCallback;
@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Sinks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +26,14 @@ import java.util.function.Consumer;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MessageProcessor { // TODO remove
+public class MessageProcessor {
 
     public static final String TYPE_HEADER_GET_ALW_ZUSTAENDIGKEIT_EVENT_BUS = "getAlwZustaendigkeitEventBus";
     private final AlwPersoneninfoService alwPersoneninfoService;
     private final CorrelateMessageService correlateMessageService;
-    private final ErrorService errorService;
+    private final BpmnErrorService bpmnErrorService;
+    private final IncidentService incidentService;
     private static final String ALW_ZUSTAENDIGE_GRUPPE = "alwZustaendigeGruppe";
-    private final Sinks.Many<Message<ErrorDto>> errorSink;
 
     /**
      * Override the custom router of the digiwf-spring-cloudstream-utils. We only have one type we need to map.
@@ -60,11 +59,10 @@ public class MessageProcessor { // TODO remove
             log.debug("Request: {}", alwPersoneninfoRequest);
             try {
                 final AlwPersoneninfoResponse response = alwPersoneninfoService.getZustaendigkeit(alwPersoneninfoRequest);
-//                emitResponse(message.getHeaders(), response);
-                throw new RuntimeException("myexception"); // TODO
+                emitResponse(message.getHeaders(), response);
             } catch (final Exception e) {
                 log.error("Request could not be fulfilled: {}", e.getMessage());
-                emitError(message.getHeaders(), "999", "TODO");
+                emitIncident(message.getHeaders(), "Call to alwPersoneninfoService failed: " + e.getMessage());
             }
         };
     }
@@ -86,7 +84,12 @@ public class MessageProcessor { // TODO remove
      *
      * @param messageHeaders          The MessageHeaders of the incoming message you want to correlate your answer to
      */
-    public void emitError(final MessageHeaders messageHeaders, final String errorCode, final String errorMessage) {
-        errorService.sendError(messageHeaders, errorCode, errorMessage);
+    public void emitBpmnError(final MessageHeaders messageHeaders, final String errorCode, final String errorMessage) {
+        bpmnErrorService.sendBpmnError(messageHeaders, errorCode, errorMessage);
     }
+
+    public void emitIncident(final MessageHeaders messageHeaders, final String errorMessage) {
+        incidentService.sendIncident(messageHeaders, errorMessage);
+    }
+
 }
