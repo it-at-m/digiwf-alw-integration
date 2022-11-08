@@ -54,6 +54,7 @@ public class AlwPersoneninfoService {
         try {
             restResponse = this.restTemplate.getForObject(url, Map.class);
         } catch (final Exception ex) {
+            log.error("Rest call failed: {}", ex.toString());
             throw new AlwException("Call to " + url + " failed", ex);
         }
         return restResponse;

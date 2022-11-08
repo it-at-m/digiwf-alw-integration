@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.PostConstruct;
 
@@ -32,7 +34,19 @@ public class FunctionalPing {
     @PostConstruct
     public void testConnection() throws Exception {
         log.debug("Testing connection");
-        alwPersoneninfoService.getZustaendigkeit(new AlwPersoneninfoRequest(azrNumber));
+        try {
+            alwPersoneninfoService.getZustaendigkeit(new AlwPersoneninfoRequest(azrNumber));
+        } catch (Exception ex){
+            if (ex.getCause() != null && ex.getCause() instanceof HttpClientErrorException){
+                HttpClientErrorException cause = (HttpClientErrorException) ex.getCause();
+                if (HttpStatus.NOT_FOUND.value() == cause.getRawStatusCode()){
+                    log.info("Ping successful");
+                    return;
+                }
+            }
+            log.error("Functional ping failed", ex);
+            throw ex;
+        }
     }
 
 }
