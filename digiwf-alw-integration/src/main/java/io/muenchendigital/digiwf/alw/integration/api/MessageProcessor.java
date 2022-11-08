@@ -57,7 +57,7 @@ public class MessageProcessor {
                 final AlwPersoneninfoResponse response = alwPersoneninfoService.getZustaendigkeit(alwPersoneninfoRequest);
                 emitResponse(message.getHeaders(), response);
             } catch (final Exception e) {
-                log.error("Request could not be fulfilled: {}", e.getMessage());
+                log.error("Request could not be fulfilled", e);
                 emitResponse(message.getHeaders(), new AlwPersoneninfoResponse(null));
             }
         };
