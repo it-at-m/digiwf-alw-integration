@@ -40,13 +40,14 @@ public class FunctionalPing {
             if (ex.getCause() != null && ex.getCause() instanceof HttpClientErrorException){
                 HttpClientErrorException cause = (HttpClientErrorException) ex.getCause();
                 if (HttpStatus.NOT_FOUND.value() == cause.getRawStatusCode()){
-                    log.info("Ping successful");
+                    log.info("Functional ping successful");
                     return;
                 }
             }
             log.error("Functional ping failed", ex);
             throw ex;
         }
+        log.info("Functional ping successful");
     }
 
 }
